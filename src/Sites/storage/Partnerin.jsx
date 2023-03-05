@@ -1,10 +1,4 @@
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import { Box, Card, Divider, Stack, useTheme } from "@mui/material";
-import {H2, H6} from "../../Components/parts/Typography.jsx";
-import FlexRowAlign from "../../Components/parts/flexbox/FlexRowAlign.jsx";
-import FlexBox from "../../Components/parts/flexbox/FlexBox.jsx";
-import UserAddIcon from "../../Components/parts/icons/UserAddIcon.jsx";
+import { Box, useTheme } from "@mui/material";
 import UserBigIcon from "../../Components/parts/icons/UserBigIcon.jsx";
 import DoneIcon from "@mui/icons-material/Done";
 import ErrorIcon from "../../Components/parts/icons/ErrorIcon.jsx";
@@ -14,8 +8,6 @@ import LeadCard from "../../Components/parts/LeadCard.jsx";
 import LongCard from "../../Components/parts/LongCard.jsx";
 import LeadVSCustomer from "../../Components/parts/LeadVSCustomer.jsx";
 import ProjectStatus from "../../Components/parts/ProjectStatus.jsx";
-import Overviews from "../../Components/parts/Overviews.jsx";
-import Tasks from "../../Components/parts/Tasks.jsx";
 import CustomerList from "../../Components/parts/customerList/index.jsx";
 import MoneyIcon from "../../Components/parts/icons/MoneyIcon.jsx";
 import CloudIcon from "../../Components/parts/icons/CloudIcon.jsx";
@@ -168,14 +160,6 @@ export default function Partner({GlobalState}) {
                     <Grid item md={4} xs={12}>
                         <ProjectStatus props={props}/>
                     </Grid>
-
-                    {/*<Grid item  xs={12}>*/}
-                    {/*    <Overviews />*/}
-                    {/*</Grid>*/}
-
-                    {/*<Grid item md={4} xs={12}>*/}
-                    {/*    <Tasks />*/}
-                    {/*</Grid>*/}
 
                     <Grid item xs={12}>
                         <CustomerList customerListData={customerListData} />
