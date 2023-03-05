@@ -1,0 +1,40 @@
+{
+  "name": "bw-fight-club",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@g-loot/react-tournament-brackets": "^1.0.22",
+    "@mui/icons-material": "^5.10.14",
+    "@mui/material": "^5.10.14",
+    "@mui/x-data-grid-generator": "^5.17.15",
+    "@mui/x-data-grid-pro": "^5.17.15",
+    "@reduxjs/toolkit": "^1.9.0",
+    "clsx": "^1.2.1",
+    "generate-password": "^1.7.0",
+    "immutability-helper": "^3.1.1",
+    "install": "^0.13.0",
+    "npm": "^9.1.2",
+    "pocketbase": "^0.8.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.4.0",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.3",
+    "simplebar-react": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@vitejs/plugin-react": "^2.2.0",
+    "vite": "^3.2.3"
+  }
+}
