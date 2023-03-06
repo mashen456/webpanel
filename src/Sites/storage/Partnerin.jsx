@@ -12,10 +12,140 @@ import CustomerList from "../../Components/parts/customerList/index.jsx";
 import MoneyIcon from "../../Components/parts/icons/MoneyIcon.jsx";
 import CloudIcon from "../../Components/parts/icons/CloudIcon.jsx";
 import HourGlassIcon from "../../Components/parts/icons/HourGlassIcon.jsx";
+import {useEffect} from "react";
+import * as React from "react";
 
 
 export default function Partner({GlobalState}) {
+    const [uebergaben, setUebergaben] = React.useState([]);
+    const [items, setItems] = React.useState([]);
+    const [clients, setClients] = React.useState([]);
     const theme = useTheme();
+    const {pb} = GlobalState
+
+    useEffect(() => {
+        async function fetchData(){
+            const newTable =[]
+            try {
+                const result = await pb.collection('uebergaben').getFullList(200,{expand:'wer,wem,item'});
+                const resultItems = await pb.collection('items').getFullList(200);
+                const resultClients = await pb.collection('partner').getFullList(200);
+                setItems(resultItems)
+                setUebergaben(result)
+                setClients(resultClients)
+            } catch (error) {
+                console.log('Error:', error);
+            }
+        }
+        pb.collection('uebergaben').subscribe('*', fetchData)
+        pb.collection('items').subscribe('*', fetchData)
+        pb.collection('partner').subscribe('*', fetchData)
+        fetchData()
+
+        return function cleanup(){
+            pb.collection('uebergaben').unsubscribe();
+            pb.collection('items').unsubscribe();
+            pb.collection('partner').unsubscribe();
+        }
+    },[]);
+
+    function getItemAmmount(item){
+        for (const i of items){
+            if (i.id === item){
+                return i.bestand
+            }
+        }
+    }
+
+
+
+
+    let parts,colors,names,chartSeries,name,max,cahrtColors
+
+    cahrtColors = []
+    chartSeries = [];
+
+    for (let i of clients){
+        chartSeries.push({name:i.name,data: []})
+        cahrtColors.push(i.color)
+    }
+
+
+    for (let i = 1; i< 8;i++){
+        const start=Date.parse(new Date(Date.now() - i * 24 * 60 * 60 * 1000))
+        const end =Date.parse(new Date(Date.now() - (i-1) * 24 * 60 * 60 * 1000))
+        for (let client of chartSeries){
+            let ammount = 0
+            for (let uebergabe of uebergaben){
+                if(Date.parse(uebergabe.date) >= start && Date.parse(uebergabe.date) <= end){
+                    if (client.name == uebergabe.expand.wem.name){
+                        ammount = uebergabe.menge
+                    }
+                }
+            }
+            client.data.push(ammount/50)
+        }
+    }
+
+
+
+    //abgabenübersicht
+    const abgabenChart={
+        cahrtColors,chartSeries
+    }
+    //top Producer
+
+
+    let newCustomerListData = []
+    
+
+
+    for (const data of uebergaben){
+        newCustomerListData.push({
+            //transaction list items
+            member:data.expand.wer.nickname,
+            amount:data.menge,
+            avatar:data.expand.wer.avatarUrl,
+            clientmember:data.angenommen_von,
+            client:data.expand.wem.name,
+            color:data.expand.wem.color,
+            itemIcon:pb.getFileUrl(data.expand.item,data.expand.item.icon,{'thumb':'50x50'})
+        })
+    }
+
+    let total_sold =0;
+    let k_seeds_total =0;
+    let ammount =0;
+
+
+    parts=[]
+    names=[]
+    colors=[]
+
+    for (const client of clients){
+        total_sold = total_sold + client.k_total
+        k_seeds_total = k_seeds_total + client.k_seeds_today
+        if (client.k_total > ammount){
+            name = client.name
+            ammount = client.k_total
+        }
+        parts.push(client.k_total)
+        names.push(client.name)
+        colors.push(client.color)
+    }
+
+
+    max = total_sold/50
+    ammount = ammount/50
+
+    const topProducer={
+        name,ammount,max
+    }
+
+    //anteile gangs
+    const props={
+        parts,colors,names
+    }
 
     const list1 = [{
         id: 1,
@@ -25,13 +155,13 @@ export default function Partner({GlobalState}) {
         color: '#1dff00'
     }, {
         id: 2,
-        amount: 33,
+        amount: getItemAmmount('5c8c20sush11zt8'),
         Icon: CloudIcon,
         title: "Pakete auf Lager",
         color: theme.palette.info.main
     }, {
         id: 3,
-        amount: 1400,
+        amount: getItemAmmount('ybfhsm47w9vunxo'),
         Icon: HourGlassIcon,
         title: "Tüten zu verarbeiten",
         color: theme.palette.text.disabled
@@ -39,19 +169,19 @@ export default function Partner({GlobalState}) {
 
     const list2 = [{
         id: 1,
-        amount: 2100,
+        amount: getItemAmmount('v1draaak65jxsoo'),
         Icon: LocalShippingIcon,
         title: "Kokasamen im Lager",
         color: theme.palette.primary.main
     }, {
         id: 2,
-        amount: 413,
+        amount: k_seeds_total,
         Icon: UserBigIcon,
         title: "Kokasamen im Umlauf",
         color: theme.palette.warning.main
     }, {
         id: 3,
-        amount: 350,
+        amount: total_sold/50,
         Icon: DoneIcon,
         title: "Ausgezahlte Kokspakete",
         color: theme.palette.info.main
@@ -62,74 +192,6 @@ export default function Partner({GlobalState}) {
         title: "Offene Kokspakete",
         color: theme.palette.error.main
     }];
-
-    let parts,colors,names,chartSeries,name,ammount,max
-
-    //top producer
-    name = "18th Str."
-    ammount = 40
-    max = 51
-
-
-    //anteil gangs chart
-    parts = [0,26,0,25]
-    names = ["Scorpions", "18th Str.", "Hustler",'Familienbestand']
-    colors = ['#662222', '#0d00ff', '#e07300','#00ffd7']
-
-    chartSeries = [{
-        name: "Scorpions",
-        data: [0, 10, 0, 10, 0, 0, 0]
-    }, {
-        name: "18th Str.",
-        data: [0, 0, 18, 0, 0, 0, 21]
-    }];
-
-    //anteile gangs
-    const props={
-        parts,colors,names
-    }
-    //abgabenübersicht
-    const abgabenChart={
-        colors,chartSeries
-    }
-    //top Producer
-    const topProducer={
-        name,ammount,max
-    }
-
-    const customerListData = [{
-        member: "Hefe",
-        amount: "2400",
-        avatar: "/static/avatar/001-man.svg",
-        clientmember: "Soul",
-        client: "18th Str."
-    },{
-        member: "Wladi",
-        amount: "1400",
-        avatar: "/static/avatar/001-man.svg",
-        clientmember: "Albert",
-        client: "Scorpions"
-    },{
-        member: "MB",
-        amount: "4",
-        avatar: "/static/avatar/001-man.svg",
-        clientmember: "Albert",
-        client: "Scorpions"
-    },{
-        member: "PA",
-        amount: "800",
-        avatar: "/static/avatar/001-man.svg",
-        clientmember: "Soul",
-        client: "18th Str."
-    },{
-        member: "Diego",
-        amount: "16",
-        avatar: "/static/avatar/001-man.svg",
-        clientmember: "Albert",
-        client: "Scorpions"
-    },];
-
-
 
 
     return(
@@ -162,7 +224,7 @@ export default function Partner({GlobalState}) {
                     </Grid>
 
                     <Grid item xs={12}>
-                        <CustomerList customerListData={customerListData} />
+                        <CustomerList customerListData={newCustomerListData} />
                     </Grid>
                 </Grid>
             </Box>;

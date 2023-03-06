@@ -4,10 +4,6 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-// import AppCheckBox from "components/AppCheckBox";
-// import AppAvatar from "components/avatars/AppAvatar";
-// import Scrollbar from "components/ScrollBar";
-// import { H5, Tiny } from "components/Typography";
 import { useState } from "react";
 import TableHeader from "./TableHeader";
 import Scrollbar from "../../../SubComponents/ScrollBar.jsx";
@@ -59,9 +55,10 @@ const tableHeading = [{
 
  // styled components
 
-const StyledTableCell = styled(TableCell)(() => ({
+const StyledTableCell = styled(TableCell)(({color}) => ({
   paddingTop: 10,
-  paddingBottom: 10
+  paddingBottom: 10,
+  backgroundColor: color
 }));
 
 export default function CustomerList({customerListData}){
@@ -114,7 +111,7 @@ export default function CustomerList({customerListData}){
   return <Card sx={{
     padding: 3
   }}>
-      <H5 mb={2}>Customer List</H5>
+      <H5 mb={2}>Übergaben Tabelle</H5>
 
       <Scrollbar>
         <TableContainer sx={{
@@ -129,7 +126,9 @@ export default function CustomerList({customerListData}){
                 amount,
                 clientmember,
                 client,
-                avatar
+                avatar,
+                  color,
+                  itemIcon
               } = row;
               const isItemSelected = selected.indexOf(member) !== -1;
               return <TableRow key={index} tabIndex={-1} amount="checkbox" selected={isItemSelected} aria-checked={isItemSelected} sx={{
@@ -150,9 +149,18 @@ export default function CustomerList({customerListData}){
                       </Stack>
                     </StyledTableCell>
 
-                    <StyledTableCell align="left">{client}</StyledTableCell>
+                    <StyledTableCell color={color} align="left">{client}</StyledTableCell>
                     <StyledTableCell align="left">{clientmember}</StyledTableCell>
-                    <StyledTableCell align="left">{amount}</StyledTableCell>
+                    {/*<StyledTableCell align="left">{amount}</StyledTableCell>*/}
+
+                <StyledTableCell>
+                  <Stack direction="row" alignItems="center" spacing={2}>
+                    <AppAvatar alt={amount} src={itemIcon} />
+                    <Tiny fontWeight={600} color="text.primary">
+                      {amount}
+                    </Tiny>
+                  </Stack>
+                </StyledTableCell>
 
                     <StyledTableCell align="right">
                       <IconButton>

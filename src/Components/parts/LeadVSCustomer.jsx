@@ -21,7 +21,7 @@ const StyledChart = styled(Chart)(() => ({
 }));
 
 export default function LeadVSCustomer({abgabenChart}){
-  const {colors,chartSeries} = abgabenChart
+  const {cahrtColors,chartSeries} = abgabenChart
   const theme = useTheme(); // chart options
 
   const chartOptions = {
@@ -32,7 +32,7 @@ export default function LeadVSCustomer({abgabenChart}){
       },
       stacked: false
     },
-    colors: colors,
+    colors: cahrtColors,
     dataLabels: {
       enabled: false
     },
