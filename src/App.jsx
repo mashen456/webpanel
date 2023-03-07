@@ -22,6 +22,8 @@ import Redirect from  './Sites/auth/Redirect.jsx'
 import Topbar from './Components/header/Topbar.jsx';
 import Menu from './Components/menu/Menu.jsx';
 
+import Deal from './Sites/storage/Deal.jsx'
+
 
 // import Menu from './Menu/Menu.jsx'
 
@@ -101,8 +103,8 @@ export default function App() {
                         </Route>
 
                         <Route path="/storage">
-                            <Route path="partnerout" element={<Partnerin GlobalState={GlobalState}/>}/>
-                            <Route path="partnerin" element={<Login GlobalState={GlobalState}/>}/>
+                            <Route path="k_dashboard" element={<Partnerin GlobalState={GlobalState}/>}/>
+                            <Route path="item_in" element={<Deal GlobalState={GlobalState}/>}/>
                         </Route>
 
                     </Routes>

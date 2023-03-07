@@ -96,7 +96,7 @@ export default function Menu(){
                     </ListItem>
                     </Link>
 
-                    <Link to="/storage/partnerout">
+                    <Link to="/storage/k_dashboard">
                     <ListItem key={"sadaads231123asdsdadas"} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
@@ -107,7 +107,7 @@ export default function Menu(){
                     </ListItem>
                     </Link>
 
-                    <Link to="/usermanagment/user">
+                    <Link to="/storage/item_in">
                     <ListItem key={"sadasdad151523dsasdas"} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
