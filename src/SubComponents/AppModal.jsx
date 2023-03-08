@@ -1,5 +1,4 @@
-import { Box, Modal, styled } from "@mui/material";
-import { lightTheme } from "../constants"; // ---------------------------------------------------------
+import {Box, Modal, styled} from "@mui/material";
 
 // ---------------------------------------------------------
 const Wrapper = styled(Box)(({
@@ -13,7 +12,7 @@ const Wrapper = styled(Box)(({
   borderRadius: "4px",
   position: "absolute",
   transform: "translate(-50%, -50%)",
-  backgroundColor: lightTheme(theme) ? "#fff" : theme.palette.background.default
+  backgroundColor: '#1e1e1f'
 }));
 
 const AppModal = ({

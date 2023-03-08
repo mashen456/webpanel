@@ -24,6 +24,8 @@ import Menu from './Components/menu/Menu.jsx';
 
 import Deal from './Sites/storage/Deal.jsx'
 
+import KeyView from "./Sites/keys/KeyView.jsx";
+
 
 // import Menu from './Menu/Menu.jsx'
 
@@ -105,6 +107,10 @@ export default function App() {
                         <Route path="/storage">
                             <Route path="k_dashboard" element={<Partnerin GlobalState={GlobalState}/>}/>
                             <Route path="item_in" element={<Deal GlobalState={GlobalState}/>}/>
+                        </Route>
+
+                        <Route path="/keys">
+                            <Route path="dashboard" element={<KeyView GlobalState={GlobalState}/>}/>
                         </Route>
 
                     </Routes>

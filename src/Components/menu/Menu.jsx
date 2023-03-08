@@ -9,19 +9,14 @@ import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import PeopleIcon from '@mui/icons-material/People';
 import DomainAddIcon from '@mui/icons-material/DomainAdd';
-import EventBusyIcon from '@mui/icons-material/EventBusy';
-import EventAvailableIcon from '@mui/icons-material/EventAvailable';
-import EventIcon from '@mui/icons-material/Event';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import MoveUpIcon from '@mui/icons-material/MoveUp';
-import MoveDownIcon from '@mui/icons-material/MoveDown';
-const drawerWidth = 240;
 import {Link} from 'react-router-dom'
 import GroupIcon from '@mui/icons-material/Group';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ChildFriendlyIcon from '@mui/icons-material/ChildFriendly';
 
 import './Menu.css'
+
+const drawerWidth = 240;
 
 export default function Menu(){
     return(
@@ -131,13 +126,13 @@ export default function Menu(){
                         </ListItem>
                     </Link>
 
-                    <Link to="/storage/partnerout">
+                    <Link to="/keys/dashboard">
                         <ListItem key={"sadaads231123asdsdadas"} disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <DomainAddIcon />
                                 </ListItemIcon>
-                                <ListItemText primary={"Partner Übergaben"} />
+                                <ListItemText primary={"Schlüsselübersicht"} />
                             </ListItemButton>
                         </ListItem>
                     </Link>
