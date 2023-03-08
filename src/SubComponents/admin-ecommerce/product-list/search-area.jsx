@@ -27,7 +27,8 @@ const SearchArea = ({
   setValue,
   selectedItems,
   gridRoute,
-  listRoute
+  listRoute,
+    text
 }) => {
   const navigate = useNavigate();
   const {
@@ -37,7 +38,7 @@ const SearchArea = ({
   const activeColor = path => pathname === path ? "primary.main" : "text.disabled";
 
   return <SecondaryWrapper>
-      <SearchInput placeholder="Search..." value={value || ""} onChange={e => {
+      <SearchInput placeholder={text} value={value || ""} onChange={e => {
       if (onChange && setValue) {
         setValue(e.target.value);
         onChange(e.target.value);

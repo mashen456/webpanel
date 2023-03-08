@@ -70,13 +70,13 @@ const AddContactForm = (props) => {
       }
       try {
           const data = {
-              "car": car,
-              "owner": user,
-              "standort": standort,
-              "kennzeichen": kennzeichen
+              car: car.id,
+              owner: user.id,
+              standort: standort,
+              kennzeichen: kennzeichen
           };
-
           await pb.collection('car_list').create(data);
+          console.log("go")
       } catch (e) {
           console.log(e)
       }
@@ -117,7 +117,7 @@ const AddContactForm = (props) => {
 
 
               <Grid item sm={6} xs={12}>
-                  <TextField fullWidth id="outlined-basic" label="Kennzeichen" variant="outlined"  type="number"
+                  <TextField fullWidth id="outlined-basic" label="Kennzeichen" variant="outlined"
                              onChange={(event, value) => {
                                  setKennzeichen(event.target.value)
                              }

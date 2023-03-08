@@ -1,6 +1,6 @@
 import { Box, Card, Grid, IconButton, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
-import {searchByName} from "../../SubComponents/utils/utils.js";
+import {searchByName, searchByPlate} from "../../SubComponents/utils/utils.js";
 import FlexBetween from "../../SubComponents/flexbox/FlexBetween.jsx";
 import AppAvatar from "../../SubComponents/avatars/AppAvatar.jsx";
 import {H6, Tiny} from "../../SubComponents/Typography.jsx";
@@ -148,7 +148,11 @@ export default function KeyView({GlobalState}){
 
   const [searchValue, setSearchValue] = useState("");
 
+
   const handleSearch = value => setSearchValue(value); // handle select
+
+
+
 
 
   const handleSelectItem = id => setSelectedItem(CONTACT_LIST[id]); // active select item
@@ -161,7 +165,9 @@ export default function KeyView({GlobalState}){
   useEffect(() => {
     const result = searchByName(CONTACT_LIST, searchValue);
     setFilteredItem(result);
-  }, [searchValue]);
+  }, [searchValue,CONTACT_LIST]);
+
+
 
   useEffect(() => {
     async function fetchData() {
@@ -214,7 +220,8 @@ export default function KeyView({GlobalState}){
           px: 3,
           height: "100%"
         }}>
-            <SearchArea value={searchValue} onChange={handleSearch} />
+
+            <SearchArea value={searchValue} onChange={handleSearch} text="Suche (Typ, Nummernschild, Halter, ID)" />
 
             <Grid container spacing={3}>
               {filteredItem.map((item, index) => <Grid item lg={4} sm={6} xs={12} key={index}>
