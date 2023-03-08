@@ -64,9 +64,9 @@ const StyledTableCell = styled(TableCell)(({color}) => ({
 export default function CustomerList({customerListData}){
 
   const [page, setPage] = useState(0);
-  const [orderBy, setOrderBy] = useState("member");
-  const [order, setOrder] = useState("asc");
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [orderBy, setOrderBy] = useState("date");
+  const [order, setOrder] = useState("desc");
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [selected, setSelected] = useState([]);
 
   const handleRequestSort = property => {
@@ -81,7 +81,6 @@ export default function CustomerList({customerListData}){
       setSelected(newSelecteds);
       return;
     }
-
     setSelected([]);
   };
 
@@ -113,7 +112,7 @@ export default function CustomerList({customerListData}){
   }}>
       <H5 mb={2}>Übergaben Tabelle</H5>
 
-      <Scrollbar>
+
         <TableContainer sx={{
         minWidth: 800
       }}>
@@ -156,9 +155,14 @@ export default function CustomerList({customerListData}){
                 <StyledTableCell>
                   <Stack direction="row" alignItems="center" spacing={2}>
                     <AppAvatar alt={amount} src={itemIcon} />
-                    <Tiny fontWeight={600} color="text.primary">
-                      {amount}
-                    </Tiny>
+                    {(amount >= 1)?
+                        <Tiny fontWeight={600} color="green">
+                          {amount}
+                        </Tiny>:
+                        <Tiny fontWeight={600} color="red">
+                          {amount}
+                        </Tiny>
+                    }
                   </Stack>
                 </StyledTableCell>
 
@@ -174,7 +178,6 @@ export default function CustomerList({customerListData}){
             </TableBody>
           </Table>
         </TableContainer>
-      </Scrollbar>
 
       <TablePagination page={page} component="div" rowsPerPage={rowsPerPage} count={customerListData.length} rowsPerPageOptions={[5, 10, 25]} onPageChange={(_, page) => setPage(page)} onRowsPerPageChange={_ => handleChangeRowsPerPage} />
     </Card>;

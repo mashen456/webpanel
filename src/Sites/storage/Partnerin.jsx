@@ -109,6 +109,7 @@ export default function Partner({GlobalState}) {
             clientmember:data.angenommen_von,
             client:data.expand.wem.name,
             color:data.expand.wem.color,
+            date:data.date,
             itemIcon:pb.getFileUrl(data.expand.item,data.expand.item.icon,{'thumb':'50x50'})
         })
     }
@@ -226,8 +227,9 @@ export default function Partner({GlobalState}) {
                     <Grid item xs={12}>
                         <CustomerList customerListData={newCustomerListData} />
                     </Grid>
+
                 </Grid>
-            </Box>;
+            </Box>
 
 
         </>
